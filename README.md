@@ -192,7 +192,6 @@ This wrapper cover the following APIs for now:
 | SYNO.Core.Hardware.BeepControl        |  
 | SYNO.Core.Hardware.FanSpeed           |  
 | SYNO.Core.Hardware.Hibernation        |  
-| SYNO.Core.Hardware.PowerSchedule      |  
 | SYNO.Core.Network                     |  
 | SYNO.Core.Network.Bond                |  
 | SYNO.Core.Network.Bridge              |  
@@ -279,6 +278,13 @@ This wrapper cover the following APIs for now:
 | SYNO.Core.User.PasswordConfirm |
 | SYNO.Core.User.UsernamePolicy  |
 
+| Core Share                         |
+|------------------------------------|
+| SYNO.Core.Share                    |
+| SYNO.Core.Share.Permission         |
+| SYNO.Core.Share.KeyManager.Store   |
+| SYNO.Core.Share.KeyManager.AutoKey |
+
 | Snapshot Replication     |
 |--------------------------|
 | SYNO.Core.Share.Snapshot |
@@ -293,6 +299,7 @@ This wrapper cover the following APIs for now:
 | SYNO.Core.TaskScheduler.Root     |
 | SYNO.Core.EventScheduler         |
 | SYNO.Core.EventScheduler.Root    |
+| SYNO.Core.Hardware.PowerSchedule |  
 
 ### Not all Surveillance Station functions works.
 | Surveillance Station                                      |
@@ -519,7 +526,6 @@ DS info with below functions:
 | `hardware_fan_speed()`            |
 | `hardware_hibernation()`          |
 | `hardware_ups()`                  |
-| `hardware_power_schedule()`       |
 | `terminal_info()`                 |
 | `snmp_info()`                     |
 | `process()`                       |
@@ -609,6 +615,28 @@ DS info with below functions:
 | `set_password_expiry()`    | Set the password expiry                                         |
 | `password_confirm()`       | Confirm password match with current logged user                 |
 | `get_username_policy()`    | Get the username policy (List of username that are not usable). |
+
+### core_share Share (DSM Shared Folder Settings)
+| Functions                         | Description                                                               |
+|-----------------------------------|---------------------------------------------------------------------------|
+| `validate_set()`                  | Validate set of parameter for a new / modified shared folder              |
+| `list_folders()`                  | List all folders informations                                             |
+| `get_folder()`                    | Get a folder by name                                                      |
+| `create_folder()`                 | Create a new shared folder                                                |
+| `delete_folders()`                | Delete folder(s) by name(s)                                               |
+| `clone()`                         | Clone existing shared folder                                              |
+
+### core_share SharePermission (DSM Shared Folder Permissions Settings)
+| Functions                         | Description                                                               |
+|-----------------------------------|---------------------------------------------------------------------------|
+| `get_folder_permission_by_name()` | Retrieve share permissions for a given folder filtered by permission name |
+| `get_folder_permissions()`        | Retrieve share permissions for a given folder                             |
+| `set_folder_permissions()`        | Set folder permissions for a given folder                                 |
+| `get_local_group_permissions()`   | Retrieve share permissions for a given group                              |
+| `set_local_group_permissions()`   | Set group permissions for a given share                                   |
+| `set_local_group_permissions()`   | Set group permissions for a given share                                   |
+
+
 
 ### Virtualization
 | Functions                  |
@@ -825,6 +853,8 @@ DS info with below functions:
 | `task_run()`                   | Run a Event Triggered task.                                    |
 | `task_delete()`                | Delete a Event Triggered task.                                 |
 | `task_create_or_set()`         | Create or modify a Event Triggered task.                       |
+| `set_power_schedule()`         | Set the power schedule, poweron tasks and poweroff tasks       |
+| `get_power_schedule()`         | Load the power schedule, poweron tasks and poweroff tasks      |
  
 #### What's still missing
 

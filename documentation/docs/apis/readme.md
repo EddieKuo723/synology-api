@@ -9,27 +9,28 @@ title: Supported APIs
   
 # Supported APIs
 At the moment there are quite a few APIs implemented. They could be totally or partically implemented, for specific documentation about an API in particular, please see  [APIs](./category/api-classes).  
-### ActiveBackupMicrosoft
+###  [ActiveBackupMicrosoft](./apis/classes/abm) 
 - `SYNO.ActiveBackupOffice365`  
   
-### AudioStation
+###  [AudioStation](./apis/classes/audiostation) 
 - `SYNO.AudioStation.Info`  
 - `SYNO.AudioStation.Playlist`  
 - `SYNO.AudioStation.RemotePlayer`  
 - `SYNO.AudioStation.Pin`  
   
-### CloudSync
+###  [CloudSync](./apis/classes/cloud_sync) 
 - `SYNO.CloudSync`  
   
-### ActiveBackupBusiness
+###  [ActiveBackupBusiness](./apis/classes/core_active_backup) 
+- `SYNO.ActiveBackup.Setting`  
 - `SYNO.ActiveBackup.Inventory`  
 - `SYNO.ActiveBackup.Overview`  
 - `SYNO.ActiveBackup.Task`  
-- `SYNO.ActiveBackup.Version`  
 - `SYNO.ActiveBackup.Log`  
 - `SYNO.ActiveBackup.Share`  
+- `SYNO.ActiveBackup.Version`  
   
-### Backup
+###  [Backup](./apis/classes/core_backup) 
 - `SYNO.Backup.Repository`  
 - `SYNO.Backup.Task`  
 - `SYNO.Backup.Target`  
@@ -39,18 +40,52 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.SDS.Backup.Server.Common.Statistic`  
 - `SYNO.SDS.Backup.Server.Common.Log`  
   
-### Certificate
+###  [Certificate](./apis/classes/core_certificate) 
 - `SYNO.Core.Certificate.CRT`  
 - `SYNO.Core.Certificate.Service`  
   
-### Group
+###  [Group](./apis/classes/core_group) 
 - `SYNO.Core.Group`  
 - `SYNO.Core.Group.Member`  
 - `SYNO.Core.BandwidthControl`  
 - `SYNO.Core.Quota`  
 - `SYNO.Core.Share.Permission`  
   
-### SysInfo
+###  [Package](./apis/classes/core_package) 
+- `SYNO.Core.Package`  
+- `SYNO.Core.Package.Server`  
+- `SYNO.Core.Package.Setting`  
+- `SYNO.Core.Package.Info`  
+- `SYNO.Core.Package.Installation`  
+- `SYNO.Core.Package.Installation.Download`  
+- `SYNO.Core.Package.Setting.Volume`  
+- `SYNO.Core.Package.Uninstallation`  
+  
+###  [Share](./apis/classes/core_share) 
+- `SYNO.Core.Share`  
+- `SYNO.Core.Share.Permission`  
+- `SYNO.Core.Share.KeyManager.Store`  
+- `SYNO.Core.Share.KeyManager.AutoKey`  
+  
+###  [SharePermission](./apis/classes/core_share) 
+- `SYNO.Core.Share`  
+- `SYNO.Core.Share.Permission`  
+- `SYNO.Core.Share.KeyManager.Store`  
+- `SYNO.Core.Share.KeyManager.AutoKey`  
+  
+###  [KeyManagerStore](./apis/classes/core_share) 
+- `SYNO.Core.Share`  
+- `SYNO.Core.Share.Permission`  
+- `SYNO.Core.Share.KeyManager.Store`  
+- `SYNO.Core.Share.KeyManager.AutoKey`  
+  
+###  [KeyManagerAutoKey](./apis/classes/core_share) 
+- `SYNO.Core.Share`  
+- `SYNO.Core.Share.Permission`  
+- `SYNO.Core.Share.KeyManager.Store`  
+- `SYNO.Core.Share.KeyManager.AutoKey`  
+  
+###  [SysInfo](./apis/classes/core_sys_info) 
 - `SYNO.Core.FileServ.SMB`  
 - `SYNO.Core.FileServ.AFP`  
 - `SYNO.Core.FileServ.NFS`  
@@ -105,7 +140,6 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.Core.ExternalDevice.UPS`  
 - `SYNO.Core.System.Utilization`  
 - `SYNO.DSM.Info`  
-- `SYNO.Core.Hardware.PowerSchedule`  
 - `SYNO.Core.Terminal`  
 - `SYNO.Core.SNMP`  
 - `SYNO.Core.System.Process`  
@@ -147,7 +181,7 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.Core.DSMNotify`  
 - `SYNO.Core.System.SystemHealth`  
   
-### User
+###  [User](./apis/classes/core_user) 
 - `SYNO.Core.User`  
 - `SYNO.Core.User.Group`  
 - `SYNO.Core.User.PasswordPolicy`  
@@ -155,7 +189,7 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.Core.User.PasswordConfirm`  
 - `SYNO.Core.User.UsernamePolicy`  
   
-### DhcpServer
+###  [DhcpServer](./apis/classes/dhcp_server) 
 - `SYNO.Network.DHCPServer`  
 - `SYNO.Network.DHCPServer.Vendor`  
 - `SYNO.Network.DHCPServer.PXE`  
@@ -165,7 +199,7 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.Network.DHCPServer.ClientList`  
 - `SYNO.Network.DHCPServer.Reservation`  
   
-### DirectoryServer
+###  [DirectoryServer](./apis/classes/directory_server) 
 - `SYNO.ActiveDirectory.Info`  
 - `SYNO.ActiveDirectory.User`  
 - `SYNO.Auth.ForgotPwd`  
@@ -174,7 +208,7 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.Core.Directory.Domain`  
 - `SYNO.ActiveDirectory.Directory`  
   
-### Docker
+###  [Docker](./apis/classes/docker_api) 
 - `SYNO.Docker.Container`  
 - `SYNO.Docker.Container.Resource`  
 - `SYNO.Core.System.Utilization`  
@@ -182,7 +216,7 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.Docker.Registry`  
 - `SYNO.Docker.Network`  
   
-### DownloadStation
+###  [DownloadStation](./apis/classes/downloadstation) 
 - `SYNO.DownloadStation.Info`  
 - `SYNO.DownloadStation.Schedule`  
 - `SYNO.DownloadStation{DOWNLOAD_ST_VERSION}.Task`  
@@ -192,7 +226,7 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.DownloadStation{DOWNLOAD_ST_VERSION}.RSS.Feed`  
 - `SYNO.DownloadStation{DOWNLOAD_ST_VERSION}.BTSearch`  
   
-### AdminConsole
+###  [AdminConsole](./apis/classes/drive_admin_console) 
 - `SYNO.SynologyDrive`  
 - `SYNO.SynologyDrive.Config`  
 - `SYNO.SynologyDrive.Connection`  
@@ -207,11 +241,12 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.SynologyDrive.Profiles`  
 - `SYNO.SynologyDrive.Index`  
   
-### EventScheduler
+###  [EventScheduler](./apis/classes/event_scheduler) 
 - `SYNO.Core.EventScheduler`  
 - `SYNO.Core.EventScheduler.Root`  
+- `SYNO.Core.Hardware.PowerSchedule`  
   
-### FileStation
+###  [FileStation](./apis/classes/filestation) 
 - `SYNO.FileStation.Info`  
 - `SYNO.FileStation.List`  
 - `SYNO.FileStation.Search`  
@@ -231,7 +266,7 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.FileStation.BackgroundTask`  
 - `SYNO.FileStation.Download`  
   
-### LogCenter
+###  [LogCenter](./apis/classes/log_center) 
 - `SYNO.LogCenter.RecvRule`  
 - `SYNO.Core.SyslogClient.Status`  
 - `SYNO.LogCenter.Log`  
@@ -240,7 +275,7 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.LogCenter.Client`  
 - `SYNO.LogCenter.History`  
   
-### NoteStation
+###  [NoteStation](./apis/classes/notestation) 
 - `SYNO.NoteStation.Setting`  
 - `SYNO.NoteStation.Info`  
 - `SYNO.NoteStation.Notebook`  
@@ -249,12 +284,12 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.NoteStation.Todo`  
 - `SYNO.NoteStation.Smart`  
   
-### OAuth
+###  [OAuth](./apis/classes/oauth) 
 - `SYNO.OAUTH.Client`  
 - `SYNO.OAUTH.Token`  
 - `SYNO.OAUTH.Log`  
   
-### Photos
+###  [Photos](./apis/classes/photos) 
 - `SYNO.Foto.UserInfo`  
 - `SYNO.Foto.Browse.Folder`  
 - `SYNO.Foto.Browse.Album`  
@@ -264,16 +299,18 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.Foto.Search.Filter`  
 - `SYNO.Foto.Setting.Guest`  
   
-### SecurityAdvisor
+###  [SecurityAdvisor](./apis/classes/security_advisor) 
 - `SYNO.SecurityAdvisor.Conf.Location`  
 - `SYNO.Core.SecurityScan.Conf`  
 - `SYNO.SecurityAdvisor.Conf.Checklist`  
 - `SYNO.SecurityAdvisor.LoginActivity`  
   
-### Snapshot
+###  [Snapshot](./apis/classes/snapshot) 
 - `SYNO.Core.Share.Snapshot`  
+- `SYNO.Core.ISCSI.LUN`  
+- `SYNO.DR.Plan`  
   
-### SurveillanceStation
+###  [SurveillanceStation](./apis/classes/surveillancestation) 
 - `SYNO.SurveillanceStation.Info`  
 - `SYNO.SurveillanceStation.Camera`  
 - `SYNO.SurveillanceStation.Camera.Event`  
@@ -330,18 +367,18 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.SurveillanceStation.Face.Result`  
 - `SYNO.SurveillanceStation.Recording.Bookmark`  
   
-### TaskScheduler
+###  [TaskScheduler](./apis/classes/task_scheduler) 
 - `SYNO.Core.EventScheduler`  
 - `SYNO.Core.TaskScheduler`  
 - `SYNO.Core.TaskScheduler.Root`  
   
-### UniversalSearch
+###  [UniversalSearch](./apis/classes/universal_search) 
 - `SYNO.Finder.FileIndexing.Search`  
   
-### USBCopy
+###  [USBCopy](./apis/classes/usb_copy) 
 - `SYNO.USBCopy`  
   
-### Virtualization
+###  [Virtualization](./apis/classes/virtualization) 
 - `SYNO.Virtualization.API.Task.Info`  
 - `SYNO.Virtualization.API.Network`  
 - `SYNO.Virtualization.API.Storage`  
@@ -350,11 +387,12 @@ At the moment there are quite a few APIs implemented. They could be totally or p
 - `SYNO.Virtualization.API.Guest.Action`  
 - `SYNO.Virtualization.API.Guest.Image`  
   
-### VPN
+###  [VPN](./apis/classes/vpn) 
 - `SYNO.VPNServer.Settings.Config`  
 - `SYNO.VPNServer.Management.Connection`  
 - `SYNO.VPNServer.Management.Log`  
 - `SYNO.VPNServer.Management.Interface`  
 - `SYNO.Core.Security.AutoBlock`  
 - `SYNO.VPNServer.Management.Account`  
+- `SYNO.VPNServer.Settings.Certificate`  
   

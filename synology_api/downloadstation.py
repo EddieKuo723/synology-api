@@ -402,6 +402,37 @@ class DownloadStation(base_api.BaseApi):
 
         return self.request_data(api_name, api_path, req_param, response_json=False).content
 
+    def set_bt_file(self, task_id: str, index: list[int], wanted: bool = False) -> dict[str, object] | str:
+        """
+        Set BT file priority/wanted status.
+
+        Parameters
+        ----------
+        task_id : str
+            Task ID.
+        index : list[int]
+            List of file indexes to set.
+        wanted : bool, optional
+            True if wanted (download), False if unwanted (skip) (default is False).
+
+        Returns
+        -------
+        dict[str, object] or str
+            API response.
+        """
+        api_name = 'SYNO.DownloadStation2.Task.BT.File'
+        info = self.download_list[api_name]
+        api_path = info['path']
+        req_param = {
+            'version': info['maxVersion'],
+            'method': 'set',
+            'task_id': f'"{task_id}"',
+            'index': json.dumps(index),
+            'wanted': str(wanted).lower()
+        }
+
+        return self.request_data(api_name, api_path, req_param)
+
     def get_task_list(self, list_id: str) -> dict[str, any]:
         """
         Get info from a task list containing the files to be downloaded.

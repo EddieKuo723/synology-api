@@ -378,6 +378,37 @@ class DownloadStation(base_api.BaseApi):
 
         return self.request_data(api_name, api_path, req_param, response_json=False).content
 
+    def set_bt_file(self, task_id: str, index: list[int], wanted: bool = False) -> dict[str, object] | str:
+        """
+        Set BT file priority/wanted status.
+
+        Parameters
+        ----------
+        task_id : str
+            Task ID.
+        index : list[int]
+            List of file indexes to set.
+        wanted : bool, optional
+            True if wanted (download), False if unwanted (skip) (default is False).
+
+        Returns
+        -------
+        dict[str, object] or str
+            API response.
+        """
+        api_name = 'SYNO.DownloadStation2.Task.BT.File'
+        info = self.download_list[api_name]
+        api_path = info['path']
+        req_param = {
+            'version': info['maxVersion'],
+            'method': 'set',
+            'task_id': f'"{task_id}"',
+            'index': json.dumps(index),
+            'wanted': str(wanted).lower()
+        }
+
+        return self.request_data(api_name, api_path, req_param)
+
     def get_task_list(self, list_id: str) -> dict[str, any]:
         """
         Get info from a task list containing the files to be downloaded.
@@ -508,6 +539,128 @@ class DownloadStation(base_api.BaseApi):
             param['id'] = ",".join(task_id)
 
         return self.request_data(api_name, api_path, param)
+
+    def _task_action_by_condition(
+        self,
+        method: str,
+        status: Optional[list[int]] = None
+    ) -> dict[str, object] | str:
+        """
+        Execute a task action by condition.
+
+        This is a private helper method used by clear_finished_tasks,
+        pause_all_tasks, and resume_all_tasks.
+
+        Parameters
+        ----------
+        method : str
+            The API method to call (e.g., 'delete_condition', 'pause_condition', 'resume_condition').
+        status : Optional[list[int]], optional
+            Task status filter (only used for delete_condition).
+
+        Returns
+        -------
+        dict[str, object] or str
+            API response indicating success or failure.
+        """
+        api_name = 'SYNO.DownloadStation' + self.download_st_version + '.Task'
+        info = self.download_list[api_name]
+        api_path = info['path']
+        param = {
+            'version': '2',
+            'method': method,
+            'type': json.dumps(['emule']),
+            'type_inverse': 'true'
+        }
+
+        if status is not None:
+            param['status'] = json.dumps(status)
+
+        return self.request_data(api_name, api_path, param)
+
+    def clear_finished_tasks(self) -> dict[str, object] | str:
+        """
+        Clear all finished BT download tasks.
+
+        This method deletes all BT tasks with status 5 (finished).
+        It uses the `delete_condition` method to batch delete tasks by status.
+
+        Returns
+        -------
+        dict[str, object] or str
+            API response indicating success or failure.
+
+        Notes
+        -----
+        Status codes:
+            - 5: finished
+        The `type_inverse=true` parameter ensures only BT tasks are deleted
+        (excludes emule type tasks).
+        """
+        return self._task_action_by_condition('delete_condition', status=[5])
+
+    def delete_all_tasks(self) -> dict[str, object] | str:
+        """
+        Delete all BT download tasks regardless of status.
+
+        This method deletes all BT tasks using the `delete_condition` method
+        without a status filter.
+
+        Returns
+        -------
+        dict[str, object] or str
+            API response indicating success or failure.
+
+        Notes
+        -----
+        The `type_inverse=true` parameter ensures only BT tasks are deleted
+        (excludes emule type tasks).
+
+        Warning
+        -------
+        This will delete ALL BT tasks including those currently downloading.
+        Use with caution.
+        """
+        return self._task_action_by_condition('delete_condition')
+
+    def pause_all_tasks(self) -> dict[str, object] | str:
+        """
+        Pause all BT download tasks.
+
+        This method pauses all BT tasks using the `pause_condition` method.
+        It uses `type_inverse=true` to exclude emule type tasks.
+
+        Returns
+        -------
+        dict[str, object] or str
+            API response indicating success or failure.
+
+        Notes
+        -----
+        The `type_inverse=true` parameter ensures only BT tasks are paused
+        (excludes emule type tasks).
+        """
+        return self._task_action_by_condition('pause_condition')
+
+    def resume_all_tasks(self) -> dict[str, object] | str:
+        """
+        Resume all paused BT download tasks.
+
+        This method resumes all BT tasks using the `resume_condition` method.
+        It uses `type_inverse=true` to exclude emule type tasks.
+
+        Returns
+        -------
+        dict[str, object] or str
+            API response indicating success or failure.
+
+        Notes
+        -----
+        The `type_inverse=true` parameter ensures only BT tasks are resumed
+        (excludes emule type tasks).
+        """
+        return self._task_action_by_condition('resume_condition')
+
 
     def pause_task(self, task_id: str) -> dict[str, object] | str:
         """

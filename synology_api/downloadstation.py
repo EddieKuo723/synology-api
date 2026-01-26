@@ -564,6 +564,38 @@ class DownloadStation(base_api.BaseApi):
 
         return self.request_data(api_name, api_path, param)
 
+    def clear_finished_tasks(self) -> dict[str, object] | str:
+        """
+        Clear all finished BT download tasks.
+
+        This method deletes all BT tasks with status 5 (finished).
+        It uses the `delete_condition` method to batch delete tasks by status.
+
+        Returns
+        -------
+        dict[str, object] or str
+            API response indicating success or failure.
+
+        Notes
+        -----
+        Status codes:
+            - 5: finished
+        The `type_inverse=true` parameter ensures only BT tasks are deleted
+        (excludes emule type tasks).
+        """
+        api_name = 'SYNO.DownloadStation2.Task'
+        info = self.download_list[api_name]
+        api_path = info['path']
+        param = {
+            'version': '2',
+            'method': 'delete_condition',
+            'type': json.dumps(['emule']),
+            'type_inverse': 'true',
+            'status': json.dumps([5])
+        }
+
+        return self.request_data(api_name, api_path, param)
+
     def pause_task(self, task_id: str) -> dict[str, object] | str:
         """
         Pause a download task.

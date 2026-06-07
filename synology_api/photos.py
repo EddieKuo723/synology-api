@@ -41,20 +41,23 @@ class Photos(base_api.BaseApi):
         Device ID for the session.
     device_name : str, optional
         Device name for the session.
+    quickconnect_id : str, optional
+        QuickConnect ID for relay-based access. Defaults to None.
     """
 
     def __init__(self,
-                 ip_address: str,
-                 port: str,
-                 username: str,
-                 password: str,
+                 ip_address: Optional[str] = None,
+                 port: Optional[str] = None,
+                 username: Optional[str] = None,
+                 password: Optional[str] = None,
                  secure: bool = False,
                  cert_verify: bool = False,
                  dsm_version: int = 7,
                  debug: bool = True,
                  otp_code: Optional[str] = None,
                  device_id: Optional[str] = None,
-                 device_name: Optional[str] = None
+                 device_name: Optional[str] = None,
+                 quickconnect_id: Optional[str] = None
                  ) -> None:
         """
         Initialize the Photos API interface.
@@ -83,10 +86,14 @@ class Photos(base_api.BaseApi):
             Device ID for the session.
         device_name : str, optional
             Device name for the session.
+        quickconnect_id : str, optional
+            QuickConnect ID for relay-based access. When provided, `ip_address`
+            and `port` are not required.
         """
 
         super(Photos, self).__init__(ip_address, port, username, password, secure, cert_verify,
-                                     dsm_version, debug, otp_code, device_id, device_name, 'FotoStation')
+                                     dsm_version, debug, otp_code, device_id, device_name, 'FotoStation',
+                                     quickconnect_id=quickconnect_id)
 
         self.session.get_api_list('Foto')
 
@@ -163,7 +170,8 @@ class Photos(base_api.BaseApi):
         dict[str, object] or str
             The list of folders or an error message.
         """
-        return self._list_folders(folder_id, limit, offset, additional, 'SYNO.Foto.Browse.Folder')
+        api_name = 'SYNO.Foto.Browse.Folder'
+        return self._list_folders(folder_id, limit, offset, additional, api_name)
 
     def list_teams_folders(self,
                            folder_id: int = 0,
@@ -190,7 +198,8 @@ class Photos(base_api.BaseApi):
         dict[str, object] or str
             The list of team folders or an error message.
         """
-        return self._list_folders(folder_id, limit, offset, additional, 'SYNO.FotoTeam.Browse.Folder')
+        api_name = 'SYNO.FotoTeam.Browse.Folder'
+        return self._list_folders(folder_id, limit, offset, additional, api_name)
 
     def _list_folders(self, folder_id: int, limit: int, offset: int, additional: Optional[str | list[str]],
                       api_name: str) -> Any:
@@ -238,7 +247,8 @@ class Photos(base_api.BaseApi):
         dict[str, object] or str
             The count of folders or an error message.
         """
-        return self._count_folders(folder_id, 'SYNO.Foto.Browse.Folder')
+        api_name = 'SYNO.Foto.Browse.Folder'
+        return self._count_folders(folder_id, api_name)
 
     def count_team_folders(self, folder_id: int = 0) -> dict[str, object] | str:
         """
@@ -254,7 +264,8 @@ class Photos(base_api.BaseApi):
         dict[str, object] or str
             The count of team folders or an error message.
         """
-        return self._count_folders(folder_id, 'SYNO.FotoTeam.Browse.Folder')
+        api_name = 'SYNO.FotoTeam.Browse.Folder'
+        return self._count_folders(folder_id, api_name)
 
     def _count_folders(self, folder_id: int, api_name: str) -> Any:
         """
@@ -536,7 +547,8 @@ class Photos(base_api.BaseApi):
         Any
             The API response for sharing the album.
         """
-        self._share('SYNO.Foto.Sharing.Passphrase', policy='album', permission=permission, album_id=album_id,
+        api_name = 'SYNO.Foto.Sharing.Passphrase'
+        self._share(api_name, policy='album', permission=permission, album_id=album_id,
                     enabled=enabled, expiration=expiration)
 
     def share_team_folder(self,
@@ -564,7 +576,8 @@ class Photos(base_api.BaseApi):
         Any
             The API response for sharing the team folder.
         """
-        self._share('SYNO.FotoTeam.Sharing.Passphrase', policy='folder', permission=permission, folder_id=folder_id,
+        api_name = 'SYNO.FotoTeam.Sharing.Passphrase'
+        self._share(api_name, policy='folder', permission=permission, folder_id=folder_id,
                     enabled=enabled, expiration=expiration)
 
     def _share(self,
@@ -635,20 +648,21 @@ class Photos(base_api.BaseApi):
 
         return self.request_data(api_name, api_path, req_param)
 
-    def list_item_in_folders(self, offset: int = 0, limit: int = 0, folder_id: int = 0, sort_by: str = 'filename',
-                             sort_direction: str = 'desc', type: str = None, passphrase: str = None,
-                             additional: list = None) -> dict[str, object] | str:
+    def list_item_in_folders(self, offset: int = 0, limit: int = 1000, folder_id: Optional[int] = None,
+                             sort_by: str = 'filename', sort_direction: str = 'desc', type: str = None,
+                             passphrase: str = None, additional: Optional[list[str]] = None
+                             ) -> dict[str, object] | str:
         """
-        List all items in all folders in Personal Space.
+        List items in a Personal Space folder.
 
         Parameters
         ----------
         offset : int
-            Specify how many shared folders are skipped before beginning to return listed shared folders.
+            Specify how many items are skipped before beginning to return listed items.
         limit : int
-            Number of shared folders requested. Set to `0` to list all shared folders.
-        folder_id : int
-            ID of folder.
+            Number of items requested. Default is 1000.
+        folder_id : int, required
+            ID of the folder returned by ``list_folders``.
         sort_by : str, optional
             Possible values: 'filename', 'filesize', 'takentime', 'item_type'.
         sort_direction : str, optional
@@ -667,18 +681,95 @@ class Photos(base_api.BaseApi):
         dict[str, object] or str
             The list of items or an error message.
         """
-        api_name = 'SYNO.Foto.Browse.Item'
+        return self._list_items_in_folder(
+            'SYNO.Foto.Browse.Item', offset, limit, folder_id, sort_by, sort_direction, type, passphrase, additional)
+
+    def list_item_in_team_folders(self, offset: int = 0, limit: int = 1000, folder_id: Optional[int] = None,
+                                  sort_by: str = 'filename', sort_direction: str = 'desc', type: str = None,
+                                  passphrase: str = None, additional: Optional[list[str]] = None
+                                  ) -> dict[str, object] | str:
+        """
+        List items in a Team Space folder.
+
+        Parameters
+        ----------
+        offset : int
+            Specify how many items are skipped before beginning to return listed items.
+        limit : int
+            Number of items requested. Default is 1000.
+        folder_id : int, required
+            ID of the folder returned by ``list_teams_folders``.
+        sort_by : str, optional
+            Possible values: 'filename', 'filesize', 'takentime', 'item_type'.
+        sort_direction : str, optional
+            Possible values: 'asc' or 'desc'. Defaults to: 'desc'.
+        type : str, optional
+            Possible values: 'photo', 'video', 'live'.
+        passphrase : str, optional
+            Passphrase for a shared album.
+        additional : list, optional
+            Additional fields to include.
+            Possible values:
+                `["thumbnail","resolution", "orientation", "video_convert", "video_meta", "provider_user_id", "exif", "tag", "description", "gps", "geocoding_id", "address", "person"]`.
+
+        Returns
+        -------
+        dict[str, object] or str
+            The list of team items or an error message.
+        """
+        return self._list_items_in_folder(
+            'SYNO.FotoTeam.Browse.Item', offset, limit, folder_id, sort_by, sort_direction, type, passphrase, additional)
+
+    def _list_items_in_folder(self, api_name: str, offset: int, limit: int, folder_id: Optional[int], sort_by: str,
+                              sort_direction: str, item_type: Optional[str], passphrase: Optional[str],
+                              additional: Optional[list[str]]) -> Any:
+        """
+        Internal method to list items in a Photos folder.
+
+        Parameters
+        ----------
+        api_name : str
+            API name to use.
+        offset : int
+            Specify how many items are skipped before beginning to return listed items.
+        limit : int
+            Number of items requested.
+        folder_id : int
+            ID of the folder.
+        sort_by : str
+            Sort field.
+        sort_direction : str
+            Sort direction.
+        item_type : str, optional
+            Item type filter.
+        passphrase : str, optional
+            Passphrase for a shared album.
+        additional : list, optional
+            Additional fields to include.
+
+        Returns
+        -------
+        Any
+            The API response.
+        """
+        if folder_id is None:
+            raise ValueError(
+                'folder_id is required; call list_folders() or list_teams_folders() first to find it.')
+        if limit <= 0:
+            raise ValueError(
+                'limit must be greater than 0 for Synology Photos item listing.')
+
         info = self.photos_list[api_name]
         api_path = info['path']
         req_param = {'version': info['maxVersion'], 'method': 'list', 'offset': offset, 'limit': limit,
                      'folder_id': folder_id, 'sort_by': sort_by, 'sort_direction': sort_direction}
 
-        if type:
-            req_param['type'] = type
+        if item_type:
+            req_param['type'] = item_type
         if passphrase:
             req_param['passphrase'] = passphrase
         if additional:
-            req_param['additional'] = additional
+            req_param['additional'] = json.dumps(additional)
 
         return self.request_data(api_name, api_path, req_param)
 

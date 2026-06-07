@@ -2,71 +2,118 @@
 # This file is used to track the documentation status of the different API classes.
 # It should be manually updated by the maintainers.
 
-- ActiveBackupBusiness:
+BaseApi:
     status: finished
-- ActiveBackupMicrosoft:
+
+ActiveBackupBusiness:
     status: finished
-- AdminConsole:
+ActiveBackupMicrosoft:
+    status: finished
+AdminConsole:
+    status: finished
+Antivirus:
+    status: finished
+AudioStation:
     status: partial
-- AudioStation:
-    status: partial
-- BaseApi:
+Backup:
     status: finished
-- Backup:
-    status: partial
-- Certificate:
-    status: partial
-- CloudSync:
+Calendar:
     status: finished
-- DhcpServer:
+Certificate:
     status: partial
-- DirectoryServer:
+ChatUser:
     status: finished
-- Docker:
+ChatBot:
     status: finished
-- DownloadStation:
+CloudSync:
+    status: finished
+CoreNotification:
     status: partial
-- EventScheduler:
-    status: finished
-- FileStation:
+CoreDirectory:
     status: partial
-- Group:
+CoreDirectoryServiceCheck:
+    status: partial
+CoreExternalDevice:
+    status: partial
+CoreNetwork:
+    status: partial
+CoreSecurity:
+    status: partial
+CoreSecurityAuth:
+    status: partial
+CoreServiceApps:
+    status: partial
+CoreServiceHW:
+    status: partial
+CoreServiceUser:
+    status: partial
+CoreStorage:
+    status: partial
+CoreSystem:
+    status: partial
+CoreUpgrade:
+    status: partial
+DhcpServer:
+    status: partial
+DirectoryServer:
     status: finished
-- KeyManagerStore:
+Docker:
+    status: finished
+DownloadStation:
+    status: partial
+EventScheduler:
+    status: finished
+FileStation:
+    status: partial
+Group:
+    status: finished
+ISCSI:
+    status: finished
+KeyManagerStore:
     status: not_started
-- KeyManagerAutoKey:
+KeyManagerAutoKey:
     status: not_started
-- LogCenter:
+LdapServer:
     status: partial
-- NoteStation:
+LogCenter:
     status: partial
-- OAuth:
-    status: partial
-- Package:
-    status: partial
-- Photos:
-    status: partial
-- SecurityAdvisor:
-    status: partial
-- Share:
-    status: partial
-- SharePermission:
-    status: partial
-- Snapshot:
+LUN:
     status: finished
-- SurveillanceStation:
-    status: partial
-- SysInfo:
-    status: partial
-- TaskScheduler:
+MailPlusServer:
     status: finished
-- UniversalSearch:
+NoteStation:
     status: partial
-- USBCopy:
+OAuth:
+    status: partial
+Package:
+    status: partial
+Photos:
+    status: partial
+SecurityAdvisor:
+    status: partial
+Share:
+    status: partial
+SharePermission:
+    status: partial
+Snapshot:
     status: finished
-- User:
+SurveillanceStation:
+    status: partial
+SysInfo:
+    status: partial
+Target:
     status: finished
-- VPN:
+TaskScheduler:
+    status: finished
+UniversalSearch:
+    status: partial
+USBCopy:
+    status: finished
+User:
+    status: finished
+VPN:
+    status: partial
+Virtualization:
     status: not_started
-- Virtualization:
-    status: not_started
+WebStation:
+    status: finished

@@ -3,29 +3,46 @@ from . import \
     audiostation, \
     auth, \
     base_api, \
-    directory_server, \
-    docker_api, \
-    drive_admin_console, \
+    chat, \
     cloud_sync, \
+    calendar, \
     core_active_backup, \
     core_backup, \
     core_certificate, \
-    core_sys_info, \
+    core_directory, \
+    core_directory_service_check, \
+    core_external_device, \
     core_group, \
-    core_user, \
-    core_share, \
+    core_iscsi, \
+    core_network, \
+    core_notification, \
     core_package, \
-    downloadstation, \
-    log_center, \
-    vpn, \
-    oauth, \
-    security_advisor, \
+    core_security, \
+    core_security_auth, \
+    core_service_apps, \
+    core_service_hw, \
+    core_service_user, \
+    core_share, \
+    core_storage, \
+    core_sys_info, \
+    core_system, \
+    core_upgrade, \
+    core_user, \
     dhcp_server, \
-    notestation, \
+    directory_server, \
+    docker_api, \
+    downloadstation, \
+    drive_admin_console, \
     filestation, \
+    ldap_server, \
+    log_center, \
+    notestation, \
+    oauth, \
     photos, \
+    security_advisor, \
+    snapshot, \
+    surveillancestation, \
+    universal_search, \
     usb_copy, \
     virtualization, \
-    universal_search, \
-    snapshot, \
-    surveillancestation
+    vpn
